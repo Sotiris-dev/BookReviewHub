@@ -6,5 +6,7 @@ namespace BookReviewHub.Application.Interfaces
     {
         Task<IEnumerable<ReviewDto>> GetReviewsForBookAsync(Guid bookId);
         Task<Guid> AddReviewAsync(CreateReviewDto dto);
+        Task<IEnumerable<ReviewDto>> GetAllAsync();
+        Task<ReviewDto?> GetByIdAsync(Guid id);
     }
 }

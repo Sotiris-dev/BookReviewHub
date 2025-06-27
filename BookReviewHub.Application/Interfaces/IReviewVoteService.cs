@@ -1,7 +1,11 @@
-﻿namespace BookReviewHub.Application.Interfaces
+﻿using BookReviewHub.Application.Models;
+
+namespace BookReviewHub.Application.Interfaces;
+
+public interface IReviewVoteService
 {
-    public interface IReviewVoteService
-    {
-        Task VoteAsync(Guid reviewId, Guid userId, bool isUpvote);
-    }
+    Task<IEnumerable<ReviewVoteDto>> GetAllAsync();
+    Task<ReviewVoteDto?> GetByIdAsync(Guid id);
+    Task VoteAsync(Guid reviewId, Guid userId, bool isUpvote);
+
 }

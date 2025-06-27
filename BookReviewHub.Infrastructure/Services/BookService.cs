@@ -2,6 +2,7 @@
 using BookReviewHub.Application.Models;
 using BookReviewHub.Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
+using System.Linq;
 
 namespace BookReviewHub.Infrastructure.Services;
 
@@ -43,8 +44,39 @@ public class BookService : IBookService
     public async Task UpdateAsync(UpdateBookDto dto)
     {
         var book = await _db.Books.FindAsync(dto.Id) ?? throw new KeyNotFoundException();
-        // π.χ. internal Update method ή properties:
         _db.Books.Update(book);
         await _db.SaveChangesAsync();
     }
+
+    public async Task<IEnumerable<BookDto>> GetFilteredAsync(string? genre, int? year)
+    {
+        var query = _db.Books.AsNoTracking().AsQueryable();
+
+        if (!string.IsNullOrWhiteSpace(genre))
+            query = query.Where(b => b.Genre == genre);
+
+        if (year.HasValue)
+            query = query.Where(b => b.PublishedYear == year.Value);
+
+        return await query
+            .Select(b => new BookDto(b.Id, b.Title, b.Author, b.PublishedYear, b.Genre))
+            .ToListAsync();
+    }
+
+    public async Task<IEnumerable<ReviewDto>> GetReviewsForBookAsync(Guid bookId)
+    {
+        return await _db.Reviews
+            .AsNoTracking()
+            .Where(r => r.BookId == bookId)
+            .Select(r => new ReviewDto(
+                r.Id,
+                r.BookId,
+                r.UserId,
+                r.Content,
+                r.Rating,
+                r.DateCreated
+            ))
+            .ToListAsync();
+    }
+
 }
