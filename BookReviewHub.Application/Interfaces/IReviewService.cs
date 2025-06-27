@@ -1,12 +1,11 @@
 ﻿using BookReviewHub.Application.Models;
 
-namespace BookReviewHub.Application.Interfaces
+namespace BookReviewHub.Application.Interfaces;
+
+public interface IReviewService
 {
-    public interface IReviewService
-    {
-        Task<IEnumerable<ReviewDto>> GetReviewsForBookAsync(Guid bookId);
-        Task<Guid> AddReviewAsync(CreateReviewDto dto);
-        Task<IEnumerable<ReviewDto>> GetAllAsync();
-        Task<ReviewDto?> GetByIdAsync(Guid id);
-    }
+    Task<Guid> AddReviewAsync(CreateReviewDto dto);
+    Task<IEnumerable<ReviewDto>> GetAllAsync();
+    Task<ReviewDto?> GetByIdAsync(Guid id);
+    Task<IEnumerable<ReviewDto>> GetReviewsForBookAsync(Guid bookId);
 }

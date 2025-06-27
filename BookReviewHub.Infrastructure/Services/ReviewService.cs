@@ -12,15 +12,6 @@ public class ReviewService : IReviewService
 
     public ReviewService(ApplicationDbContext db) => _db = db;
 
-    public async Task<IEnumerable<ReviewDto>> GetReviewsForBookAsync(Guid bookId)
-    {
-        return await _db.Reviews
-            .AsNoTracking()
-            .Where(r => r.BookId == bookId)
-            .Select(r => new ReviewDto(r.Id, r.BookId, r.UserId, r.Content, r.Rating, r.DateCreated))
-            .ToListAsync();
-    }
-
     public async Task<Guid> AddReviewAsync(CreateReviewDto dto)
     {
         var review = new Review(dto.BookId, dto.UserId, dto.Content, dto.Rating);
@@ -46,4 +37,12 @@ public class ReviewService : IReviewService
             .FirstOrDefaultAsync();
     }
 
+    public async Task<IEnumerable<ReviewDto>> GetReviewsForBookAsync(Guid bookId)
+    {
+        return await _db.Reviews
+            .AsNoTracking()
+            .Where(r => r.BookId == bookId)
+            .Select(r => new ReviewDto(r.Id, r.BookId, r.UserId, r.Content, r.Rating, r.DateCreated))
+            .ToListAsync();
+    }
 }
