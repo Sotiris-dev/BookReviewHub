@@ -7,7 +7,12 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="FluentValidation.AspNetCore" Version="11.3.1" />
     <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="9.0.6" />
+    <PackageReference Include="Swashbuckle.AspNetCore" Version="9.0.1" />
+	<ProjectReference Include="..\BookReviewHub.Application\BookReviewHub.Application.csproj" />
+	<ProjectReference Include="..\BookReviewHub.Infrastructure\BookReviewHub.Infrastructure.csproj" />
+	<ProjectReference Include="..\BookReviewHub.Identity\BookReviewHub.Identity.csproj" />
   </ItemGroup>
 
 </Project>
