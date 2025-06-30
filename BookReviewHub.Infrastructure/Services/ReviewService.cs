@@ -1,9 +1,7 @@
 ﻿using BookReviewHub.Application.Interfaces;
 using BookReviewHub.Application.Models;
-using BookReviewHub.Domain.Entities;
 using BookReviewHub.Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
-using System.Linq;
 
 namespace BookReviewHub.Infrastructure.Services;
 
