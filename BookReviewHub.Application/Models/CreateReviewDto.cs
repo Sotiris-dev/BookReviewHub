@@ -1,4 +1,11 @@
 ﻿namespace BookReviewHub.Application.Models
 {
-    public record CreateReviewDto(Guid BookId, Guid UserId, string Content, int Rating);
+    public class CreateReviewDto
+    {
+        public Guid BookId { get; set; }
+        public string UserId { get; set; } = default!;
+        public string Content { get; set; } = default!;
+        public int Rating { get; set; }
+    }
+
 }
